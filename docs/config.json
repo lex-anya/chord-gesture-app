@@ -1,0 +1,86 @@
+{
+  "key": "C",
+  "scale_type": "major",
+  "octave": 4,
+  "scale_types": [
+    "major",
+    "natural_minor",
+    "harmonic_minor",
+    "pentatonic",
+    "blues"
+  ],
+  "chord_types": [
+    "maj",
+    "min",
+    "dim",
+    "aug",
+    "maj7",
+    "7",
+    "min7",
+    "dim7",
+    "sus2",
+    "sus4",
+    "add9"
+  ],
+  "slots": [
+    {
+      "degree": 1,
+      "root": "C",
+      "chord_type": "maj",
+      "inversion": 0,
+      "octave": 4,
+      "display": "Cmaj"
+    },
+    {
+      "degree": 2,
+      "root": "D",
+      "chord_type": "min",
+      "inversion": 0,
+      "octave": 4,
+      "display": "Dmin"
+    },
+    {
+      "degree": 3,
+      "root": "E",
+      "chord_type": "min",
+      "inversion": 0,
+      "octave": 4,
+      "display": "Emin"
+    },
+    {
+      "degree": 4,
+      "root": "F",
+      "chord_type": "maj",
+      "inversion": 0,
+      "octave": 4,
+      "display": "Fmaj"
+    },
+    {
+      "degree": 5,
+      "root": "G",
+      "chord_type": "maj",
+      "inversion": 0,
+      "octave": 4,
+      "display": "Gmaj"
+    },
+    {
+      "degree": 6,
+      "root": "A",
+      "chord_type": "min",
+      "inversion": 0,
+      "octave": 4,
+      "display": "Amin"
+    },
+    {
+      "degree": 7,
+      "root": "B",
+      "chord_type": "dim",
+      "inversion": 0,
+      "octave": 4,
+      "display": "Bdim"
+    },
+    null,
+    null,
+    null
+  ]
+}
