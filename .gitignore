@@ -2,4 +2,4 @@ cga-venv/
 __pycache__/
 *.pyc
 .DS_Store
-web/config.json
+web/config.json__pycache__/
