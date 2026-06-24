@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chord Gesture App — Setup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #000000;
+      --panel-bg:  #111111;
+      --accent:    #7C3AED;
+      --highlight: #A78BFA;
+      --text:      #F5F5F5;
+      --muted:     #6B7280;
+      --border:    #2D2D2D;
+      --success:   #10B981;
+      --error:     #EF4444;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 24px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .header h1 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--highlight);
+    }
+
+    .header p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── Section ── */
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+
+    /* ── Settings row ── */
+    .settings-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .field input, .field select {
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      padding: 7px 10px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .field input:focus, .field select:focus {
+      border-color: var(--accent);
+    }
+
+    .field select {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Chord grid ── */
+    .chord-grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+    }
+
+    .chord-card {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 6px;
+      transition: border-color 0.15s;
+    }
+
+    .chord-card:focus-within {
+      border-color: var(--accent);
+    }
+
+    .chord-card.empty {
+      border-style: dashed;
+      opacity: 0.5;
+    }
+
+    .chord-card input, .chord-card select {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 12px;
+      padding: 4px 3px;
+      text-align: center;
+      outline: none;
+    }
+
+    .chord-card input {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    .chord-card select {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .chord-card input:focus, .chord-card select:focus {
+      border-color: var(--accent);
+    }
+
+    .chord-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .field-label {
+      font-size: 9px;
+      color: var(--muted);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Error message ── */
+    .error-msg {
+      font-size: 11px;
+      color: var(--error);
+      min-height: 16px;
+    }
+
+    /* ── Start button ── */
+    .start-btn {
+      align-self: flex-start;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 32px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .start-btn:hover {
+      background: var(--highlight);
+    }
+
+    .start-btn:active {
+      transform: scale(0.98);
+    }
+
+    .start-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="gesture-overlay" style="display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.85); justify-content:center; align-items:center;">
+  <div style="background:#111111; border:1px solid #2D2D2D; border-radius:12px; padding:32px; width:60vw; max-width:700px; position:relative;">
+      <button id="overlay-close" style="position:absolute; top:12px; right:16px; background:none; border:none; color:#6B7280; font-size:20px; cursor:pointer; line-height:1;">✕</button>
+      <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:#6B7280; margin-bottom:20px;">Gestures</div>
+      <div id="gesture-grid" style="display:grid; grid-template-columns:repeat(5,1fr); gap:16px;"></div>
+  </div>
+  </div>
+
+  <div class="container">
+
+    <div class="header">
+      <h1>Play Your Songs on the Go</h1>
+      <p>Configure your chords before playing. Select a key and scale to auto-fill the first slots, then customise any slot freely. When you're ready, hit Start.</p>
+    </div>
+
+    <!-- Key + Scale settings -->
+    <div class="section">
+      <div class="section-title">Key & Scale</div>
+      <div class="settings-row">
+        <div class="field">
+          <label>Key</label>
+          <input type="text" id="key-input" value="C" maxlength="2" style="width: 52px" />
+        </div>
+        <div class="field">
+          <label>Scale</label>
+          <select id="scale-select">
+            <option value="major">Major</option>
+            <option value="natural_minor">Natural Minor</option>
+            <option value="harmonic_minor">Harmonic Minor</option>
+            <option value="pentatonic">Pentatonic</option>
+            <option value="blues">Blues</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Octave</label>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <button class="start-btn" id="oct-down" style="padding: 7px 12px; font-size:16px; border-radius:6px;">−</button>
+            <span id="octave-display" style="font-family:'JetBrains Mono',monospace; font-size:14px; min-width:20px; text-align:center;">4</span>
+            <button class="start-btn" id="oct-up" style="padding: 7px 12px; font-size:16px; border-radius:6px;">+</button>
+          </div>
+        </div>
+        <!-- <div class="field">
+          <label>Wave</label>
+          <select id="wave-select">
+            <option value="sine">Sine</option>
+            <option value="triangle">Triangle</option>
+            <option value="sawtooth">Saw</option>
+            <option value="square">Square</option>
+          </select>
+        </div> -->
+        <div class="field" style="justify-content:flex-end;">
+          <button class="start-btn" id="autofill-btn" style="background: transparent; border: 1px solid var(--accent); color: var(--highlight); padding: 7px 16px; font-size: 12px;">
+            Auto-fill from scale
+          </button>
+        </div>
+      </div>
+      <div class="error-msg" id="key-error"></div>
+    </div>
+
+    <!-- Chord slots -->
+    <div class="section">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:6px;">
+        <span class="section-title" style="border:none; padding:0;">Chord Slots</span>
+        <button id="view-gestures-btn" style="background:transparent; border:1px solid var(--accent); color:var(--highlight); border-radius:6px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; padding:4px 12px; cursor:pointer;">View Gestures →</button>
+      </div>
+      <div class="chord-grid" id="chord-grid">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <!-- Start -->
+    <div class="section">
+      <div class="error-msg" id="submit-error"></div>
+      <button class="start-btn" id="start-btn">Start Playing →</button>
+    </div>
+
+  </div>
+
+  <script>
+    // ── State ─────────────────────────────────────────────
+    let octave = 4;
+    const slots = Array.from({ length: 10 }, () => ({
+      root: "", chordType: "maj", inversion: 0, octave: 4
+    }));
+
+    const CHORD_TYPES = [
+      "maj","min","dim","aug","maj7","7","min7","dim7","sus2","sus4","add9"
+    ];
+
+    const SHARPS = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+    const FLATS  = ["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"];
+
+    const CHORD_FORMULAS = {
+        "maj":  [0,4,7], "min":  [0,3,7], "dim":  [0,3,6],
+        "aug":  [0,4,8], "maj7": [0,4,7,11], "7":  [0,4,7,10],
+        "min7": [0,3,7,10], "dim7": [0,3,6,9],
+        "sus2": [0,2,7], "sus4": [0,5,7], "add9": [0,4,7,14],
+      };
+
+    function getChordNoteNames(root, chordType) {
+      const useFlats = root.includes("b") || root === "F";
+      const noteList = useFlats ? FLATS : SHARPS;
+      const rootIdx  = noteList.indexOf(root);
+      if (rootIdx === -1) return [root];
+      return (CHORD_FORMULAS[chordType] || [0,4,7])
+        .map(i => noteList[(rootIdx + i) % 12]);
+    }
+
+    // ── Build grid ────────────────────────────────────────
+    function buildGrid() {
+      const grid = document.getElementById("chord-grid");
+      grid.innerHTML = "";
+
+      for (let i = 0; i < 10; i++) {
+        const card = document.createElement("div");
+        card.className = "chord-card" + (slots[i].root ? "" : " empty");
+        card.id = `card-${i}`;
+
+        card.innerHTML = `
+          <div class="field-label">note</div>
+          <input type="text" id="root-${i}" maxlength="2"
+            placeholder="—" value="${slots[i].root}" autocomplete="off" />
+
+          <div class="field-label">type</div>
+          <select id="type-${i}">
+            ${CHORD_TYPES.map(t =>
+              `<option value="${t}" ${t === slots[i].chordType ? "selected" : ""}>${t}</option>`
+            ).join("")}
+          </select>
+
+          <div class="field-label">inv</div>
+          <select id="inv-${i}">
+            <option value="0">—</option>
+          </select>
+
+          <div class="field-label">oct</div>
+          <input type="number" id="oct-${i}" min="1" max="7" value="${slots[i].octave ?? 4}" />
+
+          <div class="chord-number">${i + 1}</div>
+        `;
+
+        grid.appendChild(card);
+
+        // Wire events
+        document.getElementById(`root-${i}`).addEventListener("input", e => {
+          slots[i].root = e.target.value.trim();
+          updateCardStyle(i);
+          updateInversions(i);
+        });
+
+        document.getElementById(`type-${i}`).addEventListener("change", e => {
+          slots[i].chordType = e.target.value;
+          updateInversions(i);
+        });
+
+        document.getElementById(`inv-${i}`).addEventListener("change", e => {
+          slots[i].inversion = parseInt(e.target.value);
+        });
+
+        document.getElementById(`oct-${i}`).addEventListener("change", e => {
+            slots[i].octave = parseInt(e.target.value);
+        });
+
+        if (slots[i].root) updateInversions(i);
+      }
+    }
+
+    function updateCardStyle(i) {
+      const card = document.getElementById(`card-${i}`);
+      card.className = "chord-card" + (slots[i].root ? "" : " empty");
+    }
+
+    function updateInversions(i) {
+      const select = document.getElementById(`inv-${i}`);
+      const root   = slots[i].root;
+      const type   = slots[i].chordType;
+      select.innerHTML = "";
+
+      if (!root) {
+        const opt = document.createElement("option");
+        opt.value = 0; opt.textContent = "—";
+        select.appendChild(opt);
+        return;
+      }
+
+      const notes = getChordNoteNames(root, type);
+      notes.forEach((note, idx) => {
+        const opt = document.createElement("option");
+        opt.value = idx;
+        opt.textContent = note;
+        if (idx === slots[i].inversion) opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
+
+    // ── Octave buttons ────────────────────────────────────
+    document.getElementById("oct-down").addEventListener("click", () => {
+      octave = Math.max(0, octave - 1);
+      document.getElementById("octave-display").textContent = octave;
+    });
+
+    document.getElementById("oct-up").addEventListener("click", () => {
+      octave = Math.min(8, octave + 1);
+      document.getElementById("octave-display").textContent = octave;
+    });
+
+    // ── Auto-fill from scale ──────────────────────────────
+    document.getElementById("autofill-btn").addEventListener("click", async () => {
+      const key   = document.getElementById("key-input").value.trim();
+      const scale = document.getElementById("scale-select").value;
+      const keyErr = document.getElementById("key-error");
+
+      if (!key) { keyErr.textContent = "Please enter a key."; return; }
+      keyErr.textContent = "";
+
+      try {
+        const res = await fetch("/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ key, scale_type: scale, octave, slots: [] }), // removed wave: sine
+        });
+        const data = await res.json();
+
+        if (data.status !== "ok") {
+          keyErr.textContent = data.error || "Something went wrong.";
+          return;
+        }
+
+        // Populate slots from response
+        data.config.slots.forEach((chord, i) => {
+          if (chord) {
+            slots[i].root      = chord.root;
+            slots[i].chordType = chord.chord_type;
+            slots[i].inversion = chord.inversion || 0;
+          } else {
+            slots[i].root      = "";
+            slots[i].chordType = "maj";
+            slots[i].inversion = 0;
+          }
+        });
+
+        buildGrid();
+        keyErr.textContent = "";
+
+      } catch (err) {
+        keyErr.textContent = "Could not reach server.";
+      }
+    });
+
+    // ── Start button ──────────────────────────────────────
+    document.getElementById("start-btn").addEventListener("click", async () => {
+      const key   = document.getElementById("key-input").value.trim();
+      const scale = document.getElementById("scale-select").value;
+    //   const wave  = document.getElementById("wave-select").value;
+      const err   = document.getElementById("submit-error");
+
+      err.textContent = "";
+
+      try {
+        const res = await fetch("/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            key, scale_type: scale, octave, // removed wave,
+            slots: slots.map(s => s.root ? s : null)
+        }),
+        });
+        const data = await res.json();
+
+        if (data.status !== "ok") {
+          err.textContent = data.error || "Something went wrong.";
+          return;
+        }
+
+        window.location.href = "/app";
+
+      } catch (e) {
+        err.textContent = "Could not reach server.";
+      }
+    });
+
+    // ── Init ──────────────────────────────────────────────
+    buildGrid();
+
+    // ── Gesture overlay ───────────────────────────────────────
+    document.getElementById("view-gestures-btn").addEventListener("click", () => {
+        document.getElementById("gesture-overlay").style.display = "flex";
+    });
+    document.getElementById("overlay-close").addEventListener("click", () => {
+        document.getElementById("gesture-overlay").style.display = "none";
+    });
+    document.getElementById("gesture-overlay").addEventListener("click", e => {
+        if (e.target === document.getElementById("gesture-overlay")) {
+            document.getElementById("gesture-overlay").style.display = "none";
+        }
+    });
+
+    // ── Build gesture grid ────────────────────────────────────
+    const grid = document.getElementById("gesture-grid");
+
+    for (let i = 1; i <= 10; i++) {
+    grid.appendChild(createGestureCell(`assets/gestures/gesture_${i}.jpg`, `${i}`));
+    }
+
+    // Centered last row for play + stop
+    const lastRow = document.createElement("div");
+    lastRow.style.cssText = "grid-column: 1 / -1; display:flex; justify-content:center; gap:16px;";
+
+    const cellWidth = "calc(20% - 13px)"; // match 5-column width
+    ["play", "stop"].forEach(name => {
+        const cell = createGestureCell(`assets/gestures/gesture_${name}.jpg`, name);
+        cell.style.width = cellWidth;
+        lastRow.appendChild(cell);
+    });
+
+    grid.appendChild(lastRow);
+
+    function createGestureCell(src, label) {
+    const div = document.createElement("div");
+    div.style.cssText = "display:flex;flex-direction:column;align-items:center;gap:6px;";
+    div.innerHTML = `
+        <img src="${src}" style="width:100%;border-radius:6px;border:1px solid #2D2D2D;" />
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6B7280;">${label}</span>
+    `;
+    return div;
+    }
+  </script>
+</body>
+</html>
