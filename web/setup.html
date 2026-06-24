@@ -300,6 +300,7 @@
 
   </div>
 
+  <script src="music_theory.js"></script>
   <script>
     // ── State ─────────────────────────────────────────────
     let octave = 4;
@@ -429,78 +430,122 @@
     });
 
     // ── Auto-fill from scale ──────────────────────────────
-    document.getElementById("autofill-btn").addEventListener("click", async () => {
+    // document.getElementById("autofill-btn").addEventListener("click", async () => {
+    //   const key   = document.getElementById("key-input").value.trim();
+    //   const scale = document.getElementById("scale-select").value;
+    //   const keyErr = document.getElementById("key-error");
+
+    //   if (!key) { keyErr.textContent = "Please enter a key."; return; }
+    //   keyErr.textContent = "";
+
+    //   try {
+    //     const res = await fetch("/generate", {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({ key, scale_type: scale, octave, slots: [] }), // removed wave: sine
+    //     });
+    //     const data = await res.json();
+
+    //     if (data.status !== "ok") {
+    //       keyErr.textContent = data.error || "Something went wrong.";
+    //       return;
+    //     }
+
+    //     // Populate slots from response
+    //     data.config.slots.forEach((chord, i) => {
+    //       if (chord) {
+    //         slots[i].root      = chord.root;
+    //         slots[i].chordType = chord.chord_type;
+    //         slots[i].inversion = chord.inversion || 0;
+    //       } else {
+    //         slots[i].root      = "";
+    //         slots[i].chordType = "maj";
+    //         slots[i].inversion = 0;
+    //       }
+    //     });
+
+    //     buildGrid();
+    //     keyErr.textContent = "";
+
+    //   } catch (err) {
+    //     keyErr.textContent = "Could not reach server.";
+    //   }
+    // });
+    document.getElementById("autofill-btn").addEventListener("click", () => {
       const key   = document.getElementById("key-input").value.trim();
       const scale = document.getElementById("scale-select").value;
       const keyErr = document.getElementById("key-error");
-
       if (!key) { keyErr.textContent = "Please enter a key."; return; }
       keyErr.textContent = "";
-
       try {
-        const res = await fetch("/generate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ key, scale_type: scale, octave, slots: [] }), // removed wave: sine
+        const chords = getDiatonicChords(key, scale);
+        chords.forEach((chord, i) => {
+          slots[i].root      = chord.root;
+          slots[i].chordType = chord.chord_type;
+          slots[i].inversion = 0;
+          slots[i].octave    = octave;
         });
-        const data = await res.json();
-
-        if (data.status !== "ok") {
-          keyErr.textContent = data.error || "Something went wrong.";
-          return;
-        }
-
-        // Populate slots from response
-        data.config.slots.forEach((chord, i) => {
-          if (chord) {
-            slots[i].root      = chord.root;
-            slots[i].chordType = chord.chord_type;
-            slots[i].inversion = chord.inversion || 0;
-          } else {
-            slots[i].root      = "";
-            slots[i].chordType = "maj";
-            slots[i].inversion = 0;
-          }
-        });
-
         buildGrid();
-        keyErr.textContent = "";
-
-      } catch (err) {
-        keyErr.textContent = "Could not reach server.";
+      } catch (e) {
+        keyErr.textContent = e.message;
       }
     });
 
     // ── Start button ──────────────────────────────────────
-    document.getElementById("start-btn").addEventListener("click", async () => {
+    // document.getElementById("start-btn").addEventListener("click", async () => {
+    //   const key   = document.getElementById("key-input").value.trim();
+    //   const scale = document.getElementById("scale-select").value;
+    // //   const wave  = document.getElementById("wave-select").value;
+    //   const err   = document.getElementById("submit-error");
+
+    //   err.textContent = "";
+
+    //   try {
+    //     const res = await fetch("/generate", {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({ 
+    //         key, scale_type: scale, octave, // removed wave,
+    //         slots: slots.map(s => s.root ? s : null)
+    //     }),
+    //     });
+    //     const data = await res.json();
+
+    //     if (data.status !== "ok") {
+    //       err.textContent = data.error || "Something went wrong.";
+    //       return;
+    //     }
+
+    //     window.location.href = "/app";
+
+    //   } catch (e) {
+    //     err.textContent = "Could not reach server.";
+    //   }
+    // });
+    document.getElementById("start-btn").addEventListener("click", () => {
       const key   = document.getElementById("key-input").value.trim();
       const scale = document.getElementById("scale-select").value;
-    //   const wave  = document.getElementById("wave-select").value;
       const err   = document.getElementById("submit-error");
-
       err.textContent = "";
 
-      try {
-        const res = await fetch("/generate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
-            key, scale_type: scale, octave, // removed wave,
-            slots: slots.map(s => s.root ? s : null)
-        }),
-        });
-        const data = await res.json();
+      if (!key) { err.textContent = "Please enter a key."; return; }
 
-        if (data.status !== "ok") {
-          err.textContent = data.error || "Something went wrong.";
-          return;
-        }
+      const config = {
+        key, scale_type: scale, octave,
+        scale_types: Object.keys(SCALE_FORMULAS),
+        chord_types: Object.keys(CHORD_FORMULAS_MT),
+        slots: slots.map(s => s.root ? {
+          root: s.root,
+          chord_type: s.chordType,
+          inversion: s.inversion,
+          octave: s.octave,
+          display: `${s.root}${s.chordType}`,
+        } : null),
+      };
 
-        window.location.href = "/app";
-
-      } catch (e) {
-        err.textContent = "Could not reach server.";
-      }
+      // Store in sessionStorage and redirect
+      sessionStorage.setItem("chordConfig", JSON.stringify(config));
+      window.location.href = "index.html";
     });
 
     // ── Init ──────────────────────────────────────────────
