@@ -88,7 +88,7 @@ const dwell = {
   stop:      { active: false, startTime: null },
 };
 
-const DWELL_MS = 150;
+const DWELL_MS = 50;
 
 // ── Main entry point — called every frame from sketch.js ──
 function detectGestures(results) {
