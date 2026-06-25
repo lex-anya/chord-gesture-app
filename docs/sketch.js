@@ -24,7 +24,7 @@ let hands = null;
 let latestHandResults = null;
 let prevConfirmGesture = false;
 let lastConfirmTime = 0;
-const CONFIRM_COOLDOWN_MS = 100;
+const CONFIRM_COOLDOWN_MS = 50;
 
 function initMediaPipe() {
   hands = new Hands({
