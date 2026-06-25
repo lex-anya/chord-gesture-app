@@ -1,6 +1,6 @@
 import os
 
-OUT_DIR = "docs/assets/gestures"
+OUT_DIR = "web/assets/gestures"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 FINGER_BASES = {
@@ -99,7 +99,7 @@ def make_stop_svg():
         return "\n".join(lines)
 
     return "\n".join([
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" width="120" height="160">',
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" width="240" height="160">',
         '  <rect width="240" height="160" fill="#000000" rx="8"/>',
         hand_group(0, cl, mirror=True),   # left hand, mirrored so thumb faces right (inward)
         hand_group(120, cr, mirror=False),  # right hand, no mirror, thumb already faces left (inward)
