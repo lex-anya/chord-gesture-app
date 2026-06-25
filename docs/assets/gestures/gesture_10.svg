@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="120" height="160">
+  <rect width="120" height="160" fill="#000000" rx="8"/>
+  <polyline points="40,76 54,72 68,74 80,78" fill="none" stroke="#6D28D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="30" y1="92" x2="40" y2="76" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="40" y1="76" x2="42" y2="128" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="54" y1="72" x2="60" y2="128" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="80" y1="78" x2="78" y2="128" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="38" y1="128" x2="82" y2="128" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="38" cy="128" r="3" fill="#A78BFA"/>
+  <circle cx="82" cy="128" r="3" fill="#A78BFA"/>
+  <circle cx="60" cy="128" r="3" fill="#A78BFA"/>
+  <polyline points="40,76 54,72 68,74 80,78" fill="none" stroke="#6D28D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="30" y1="92" x2="40" y2="76" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="40" y1="76" x2="42" y2="128" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="54" y1="72" x2="60" y2="128" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="80" y1="78" x2="78" y2="128" stroke="#6D28D9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="38" y1="128" x2="82" y2="128" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="38" cy="128" r="3" fill="#A78BFA"/>
+  <circle cx="82" cy="128" r="3" fill="#A78BFA"/>
+  <circle cx="60" cy="128" r="3" fill="#A78BFA"/>
+  <polyline points="30,92 32.0,90.0 38,88" fill="none" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="30.0" cy="92.0" r="3" fill="#A78BFA"/>
+  <circle cx="32.0" cy="90.0" r="3" fill="#A78BFA"/>
+  <circle cx="38.0" cy="88.0" r="3" fill="#A78BFA"/>
+  <polyline points="40,76 41.0,83.0 46,90" fill="none" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="40.0" cy="76.0" r="3" fill="#A78BFA"/>
+  <circle cx="41.0" cy="83.0" r="3" fill="#A78BFA"/>
+  <circle cx="46.0" cy="90.0" r="3" fill="#A78BFA"/>
+  <polyline points="54,72 53.0,82.0 56,92" fill="none" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="54.0" cy="72.0" r="3" fill="#A78BFA"/>
+  <circle cx="53.0" cy="82.0" r="3" fill="#A78BFA"/>
+  <circle cx="56.0" cy="92.0" r="3" fill="#A78BFA"/>
+  <polyline points="68,74 65.5,82.5 67,91" fill="none" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="68.0" cy="74.0" r="3" fill="#A78BFA"/>
+  <circle cx="65.5" cy="82.5" r="3" fill="#A78BFA"/>
+  <circle cx="67.0" cy="91.0" r="3" fill="#A78BFA"/>
+  <polyline points="80,78 77.5,58.0 79,38" fill="none" stroke="#6D28D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="80.0" cy="78.0" r="3" fill="#A78BFA"/>
+  <circle cx="77.5" cy="58.0" r="3" fill="#A78BFA"/>
+  <circle cx="79.0" cy="38.0" r="3" fill="#A78BFA"/>
+  <text x="60" y="150" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#A78BFA">10</text>
+</svg>
