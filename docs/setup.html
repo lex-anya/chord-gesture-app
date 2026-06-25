@@ -579,6 +579,9 @@
     ["play", "stop"].forEach(name => {
         const cell = createGestureCell(`assets/gestures/gesture_${name}.svg`, name);
         cell.style.width = cellWidth;
+        if (name === "stop") {
+          cell.style.width = `calc(${cellWidth} * 2 + 16px)`;
+        }
         lastRow.appendChild(cell);
     });
 
