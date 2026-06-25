@@ -77,8 +77,6 @@ def make_svg(extended_fingers, hand="right", label=""):
         parts.append(f'  {finger_svg(finger, finger in extended_fingers, c)}')
     if hand == "left":
         parts.append('  </g>')
-    if label:
-        parts.append(f'  <text x="60" y="150" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="{c["joint"]}">{label}</text>')
     parts.append('</svg>')
     return "\n".join(parts)
 
@@ -103,7 +101,6 @@ def make_stop_svg():
         '  <rect width="240" height="160" fill="#000000" rx="8"/>',
         hand_group(0, cl, mirror=True),   # left hand, mirrored so thumb faces right (inward)
         hand_group(120, cr, mirror=False),  # right hand, no mirror, thumb already faces left (inward)
-        '  <text x="120" y="150" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#6B7280">stop</text>',
         '</svg>',
     ])
 

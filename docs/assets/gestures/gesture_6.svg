@@ -38,5 +38,4 @@
   <circle cx="80.0" cy="78.0" r="3" fill="#A78BFA"/>
   <circle cx="76.0" cy="83.5" r="3" fill="#A78BFA"/>
   <circle cx="76.0" cy="89.0" r="3" fill="#A78BFA"/>
-  <text x="60" y="150" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#A78BFA">6</text>
 </svg>
