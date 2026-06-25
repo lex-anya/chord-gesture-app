@@ -568,7 +568,7 @@
     const grid = document.getElementById("gesture-grid");
 
     for (let i = 1; i <= 10; i++) {
-    grid.appendChild(createGestureCell(`assets/gestures/gesture_${i}.jpg`, `${i}`));
+    grid.appendChild(createGestureCell(`assets/gestures/gesture_${i}.svg`, `${i}`));
     }
 
     // Centered last row for play + stop
@@ -577,7 +577,7 @@
 
     const cellWidth = "calc(20% - 13px)"; // match 5-column width
     ["play", "stop"].forEach(name => {
-        const cell = createGestureCell(`assets/gestures/gesture_${name}.jpg`, name);
+        const cell = createGestureCell(`assets/gestures/gesture_${name}.svg`, name);
         cell.style.width = cellWidth;
         lastRow.appendChild(cell);
     });
