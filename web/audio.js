@@ -6,6 +6,8 @@ const CHORD_INTERVALS = {
   "aug":  [0,4,8],  "maj7": [0,4,7,11], "7":  [0,4,7,10],
   "min7": [0,3,7,10], "dim7": [0,3,6,9],
   "sus2": [0,2,7],  "sus4": [0,5,7],  "add9": [0,4,7,14],
+  "minadd9": [0, 3, 7, 14], "9": [0, 4, 7, 10, 14],
+  "min9": [0, 3, 7, 10, 14], "6": [0, 4, 7, 9],
 };
 
 let synth = null;       // PolySynth, created on first confirm
