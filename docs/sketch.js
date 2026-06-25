@@ -128,6 +128,7 @@ const trails = {
 };
 
 function updateTrails(landmarks, handLabel) {
+  if (!landmarks || landmarks.length < 21) return;
   const { renderWidth, renderHeight, offsetX, offsetY } = getVideoRenderRect();
 
   FINGERTIP_INDICES.forEach((tipIndex, i) => {
@@ -215,6 +216,7 @@ const HAND_CONNECTIONS = [
 ];
 
 function drawSkeleton(landmarks, handLabel) {
+  if (!landmarks || landmarks.length < 21) return;
   const { renderWidth, renderHeight, offsetX, offsetY } = getVideoRenderRect();
 
   const toPixel = (lm) => ({

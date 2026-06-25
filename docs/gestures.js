@@ -100,6 +100,7 @@ function detectGestures(results) {
   // MediaPipe labels are from the camera's perspective (mirrored)
   // so "Left" in results = user's right hand
   for (let i = 0; i < results.multiHandLandmarks.length; i++) {
+    if (results.multiHandLandmarks[i].length < 21) continue;
     const label = results.multiHandedness[i].label;
     if (label === "Left")  rightLandmarks = results.multiHandLandmarks[i];
     if (label === "Right") leftLandmarks  = results.multiHandLandmarks[i];
